@@ -1,0 +1,84 @@
+#include<iostream> 
+using namespace std; 
+class Number {
+  protected:
+    double value; 
+  public:
+ 
+    Number(double v) {
+      value = v;
+    }
+   
+    virtual void display() {
+      cout<<"The value is: "<<value<<endl;
+    }
+};
+
+
+class PowerNumber : public Number {
+  private:
+    int power; // The power value
+  public:
+   
+    PowerNumber(double v, int p) : Number(v) {
+      power = p;
+    }
+   
+    double powerLoop() {
+      double ans=1; 
+      if(power==0) 
+        return ans; 
+      else 
+      {   
+        for(int i=1;i<=power;i++) 
+        { 
+          ans=ans*value; 
+        } 
+        return ans; 
+      } 
+    }
+  
+    double powerRecurse(int p) {
+      if(p==0) 
+      { 
+        return 1; 
+      } 
+      if(p==1) 
+      { 
+        return value; 
+      } 
+      else 
+      { 
+        return (value*powerRecurse(p-1)); 
+      } 
+    }
+   
+    void display() {
+      cout<<"The value is: "<<value<<" and the power is: "<<power<<endl;
+    }
+};
+
+int main() 
+{ 
+  double n; 
+  int p; 
+  cout<<"Enter the base value (power is default set to 2) :"; 
+  cin>>n; 
+  
+  PowerNumber num1(n,2);
+  num1.display();
+  cout<<"Power of number is : "<<num1.powerLoop()<<endl; 
+  cout<<"\nEnter the base value and power :"; 
+  cin>>n>>p; 
+ 
+  PowerNumber num2(n,p);
+  num2.display();
+  cout<<"Power of number is : "<<num2.powerLoop()<<endl; 
+  cout<<"\nEnter the base value and power :"; 
+  cin>>n>>p; 
+ 
+  PowerNumber num3(n,p);
+  num3.display();
+  cout<<"Using Recursion, Power of number is : "<<num3.powerRecurse(p)<<endl; 
+  return 0; 
+} 
