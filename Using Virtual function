@@ -1,0 +1,66 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+class Number
+{
+protected:
+    double value; 
+public:
+   
+    Number(double value)
+    {
+        this->value = value;
+    }
+   
+    virtual double power(int exponent) = 0;
+};
+
+
+class Integer : public Number
+{
+public:
+ 
+    Integer(int value) : Number(value)
+    {
+    }
+  
+    double power(int exponent)
+    {
+        return pow(value, exponent);
+    }
+};
+
+
+class Float : public Number
+{
+public:
+    
+    Float(float value) : Number(value)
+    {
+    }
+ 
+    double power(int exponent)
+    {
+        return pow(value, exponent);
+    }
+};
+
+
+int main()
+{
+   
+    Number *num;
+   
+    Integer i(2);
+   
+    num = &i;
+  
+    cout << num->power(3) << endl; 
+  
+    Float f(8);
+    
+    num = &f;
+   
+    cout << num->power(3) << endl;
+    return 0;
+}
