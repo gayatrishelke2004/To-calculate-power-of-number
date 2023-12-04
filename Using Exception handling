@@ -1,0 +1,94 @@
+#include<iostream> 
+using namespace std; 
+class InvalidInputException : public exception {
+  public:
+    const char* what() const throw() {
+      return "Invalid input. Please enter a valid number and a non-negative integer.";
+    }
+};
+double Power(double n,int p=2) 
+{ 
+  double ans=1; 
+  if(p==0) 
+    return ans; 
+  else 
+  {   
+    for(int i=1;i<=p;i++) 
+    { 
+      ans=ans*n; 
+    } 
+    return ans; 
+  } 
+} 
+double Recurse(double n,int p=2) 
+{ 
+  if(p==0) 
+  { 
+    return 1; 
+  } 
+  if(p==1) 
+  { 
+    return n; 
+  } 
+  else 
+  { 
+    return (n*Recurse(n,p-1)); 
+  } 
+} 
+
+int main() 
+{ 
+  double n; 
+  int p; 
+  cout<<"Enter the base value (power is default set to 2) :"; 
+  try {
+    cin>>n; 
+    // Check if the input is valid
+    if(cin.fail()) {
+      cin.clear();
+      cin.ignore(1000, '\n');
+      throw InvalidInputException();
+    }
+    cout<<"Power of number is : "<<Power(n)<<endl; 
+  }
+  catch(InvalidInputException& e) {
+    // Print the error message
+    cout<<e.what()<<endl;
+  }
+  
+  cout<<"\nEnter the base value and power :"; 
+  try {
+    cin>>n>>p; 
+    // Check if the input is valid
+    if(cin.fail() || p < 0) {
+      // Clear the input stream and throw an exception
+      cin.clear();
+      cin.ignore(1000, '\n');
+      throw InvalidInputException();
+    }
+    cout<<"Power of number is : "<<Power(n,p)<<endl; 
+  }
+  catch(InvalidInputException& e) {
+    // Print the error message
+    cout<<e.what()<<endl;
+  }
+  
+  cout<<"\nEnter the base value and power :"; 
+
+  try {
+    cin>>n>>p; 
+    // Check if the input is valid
+    if(cin.fail() || p < 0) {
+      
+      cin.clear();
+      cin.ignore(1000, '\n');
+      throw InvalidInputException();
+    }
+    cout<<"Using Recursion, Power of number is : "<<Recurse(n,p)<<endl; 
+  }
+  catch(InvalidInputException& e) {
+    // Print the error message
+    cout<<e.what()<<endl;
+  }
+  return 0; 
+} 
